@@ -13,7 +13,7 @@ import java.util.Arrays
 import java.net.InetSocketAddress
 import org.eclipse.jgit.api.errors.JGitInternalException
 
-val dir=Bundle.message("dir.clone")
+val dir=Bundle.message("dir.clone.pkg.root")
 fun gitClone(uri: String) = try {
 	Git.cloneRepository().setURI(uri).setDirectory("$dir\\${uri.trimRepoName()}".toFile()).call()
 	println(uri)
@@ -41,13 +41,11 @@ fun setProxy() {
 			else
 				delegate.select(uri)
 		}
-
 		override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) {
 			if (uri == null || sa == null || ioe == null) {
 				throw IllegalArgumentException(
 						"Arguments can't be null.")
 			}
 		}
-
 	})
 }
