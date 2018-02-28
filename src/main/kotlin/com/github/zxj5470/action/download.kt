@@ -1,11 +1,9 @@
-package com.github.zxj5470
-
+package com.github.zxj5470.action
 import com.github.zxj5470.util.*
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
-import kotlinx.coroutines.experimental.runBlocking
 
-fun main(args: Array<String>) = runBlocking {
+suspend fun download(){
 	setProxy()
 	removeEmptyDirs()
 	val repos = listHolonomicRepoAddress()

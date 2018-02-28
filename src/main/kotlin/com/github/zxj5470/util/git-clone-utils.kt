@@ -1,25 +1,24 @@
-package com.github.zxj5470.javaapi
+package com.github.zxj5470.util
 
-import com.github.zxj5470.util.Bundle
-import com.github.zxj5470.util.toFile
-import com.github.zxj5470.util.trimRepoName
 import org.eclipse.jgit.api.Git
-import java.io.IOException
-import java.net.Proxy
-import java.net.ProxySelector
-import java.net.SocketAddress
-import java.net.URI
-import java.util.Arrays
-import java.net.InetSocketAddress
 import org.eclipse.jgit.api.errors.JGitInternalException
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
+import java.io.IOException
+import java.net.*
+import java.util.*
 
 val dir=Bundle.message("dir.clone.pkg.root")
 fun gitClone(uri: String) = try {
-	Git.cloneRepository().setURI(uri).setDirectory("$dir\\${uri.trimRepoName()}".toFile()).call()
-	println(uri)
+	println("cloning: $uri")
+	Git.cloneRepository().setURI(uri).setDirectory("$dir\\${uri.trimRepoName()}".toFile()).setCredentialsProvider(UsernamePasswordCredentialsProvider("zxj5470","698188zxjwjdtls")).call()
+	println("clone $uri done")
 } catch (e: JGitInternalException) {
-	println(e.printStackTrace())
-	println("it has cloned before")
+	if(e.message?.contains("already exists") == true)
+		println("it has cloned before")
+	else {
+		System.err.println("error in :$uri")
+		e.printStackTrace()
+	}
 }
 
 fun setProxy() {
