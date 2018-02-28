@@ -1,4 +1,4 @@
-package com.github.zxj5470.util
+package com.github.zxj5470.zulia.util
 
 import java.util.*
 
