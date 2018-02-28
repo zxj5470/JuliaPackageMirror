@@ -3,7 +3,9 @@ package com.github.zxj5470.zulia.util
 import DeleteUtil
 import java.io.File
 import java.nio.file.Files
+import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.stream.Collectors
 
 object FileManager {
 	fun listHolonomicRepoAddress() =
@@ -28,12 +30,10 @@ object FileManager {
 				}
 	}
 
-	fun listHolonomicLocalDirs(){
-		val rootPath = Bundle.message("dir.clone.pkg.root").toPath()
-	}
+	fun listHolonomicLocalDirs(): MutableList<Path> = Files.list(Bundle.message("dir.clone.pkg.root").toPath()).collect(Collectors.toList())
 }
 
 fun String.trimRepoName() = this.substringAfterLast('/').substringBefore(".git")
-
 fun String.toFile() = File(this)
 fun String.toPath() = Paths.get(this)!!
+fun <E>List<E>.sub(beginIndex:Int, size:Int)=this.subList(beginIndex,beginIndex+ size)

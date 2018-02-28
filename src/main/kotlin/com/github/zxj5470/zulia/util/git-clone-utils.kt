@@ -7,13 +7,13 @@ import java.io.IOException
 import java.net.*
 import java.util.*
 
-val dir= Bundle.message("dir.clone.pkg.root")
+val dir = Bundle.message("dir.clone.pkg.root")
 fun gitClone(uri: String) = try {
 	println("cloning: $uri")
-	Git.cloneRepository().setURI(uri).setDirectory("${dir}\\${uri.trimRepoName()}".toFile()).setCredentialsProvider(UsernamePasswordCredentialsProvider("zxj5470","698188zxjwjdtls")).call()
+	Git.cloneRepository().setURI(uri).setDirectory("${dir}\\${uri.trimRepoName()}".toFile()).setCredentialsProvider(UsernamePasswordCredentialsProvider("zxj5470", "698188zxjwjdtls")).call()
 	println("clone $uri done")
 } catch (e: JGitInternalException) {
-	if(e.message?.contains("already exists") == true)
+	if (e.message?.contains("already exists") == true)
 		println("it has cloned before")
 	else {
 		System.err.println("error in :$uri")
@@ -40,6 +40,7 @@ fun setProxy() {
 			else
 				delegate.select(uri)
 		}
+
 		override fun connectFailed(uri: URI?, sa: SocketAddress?, ioe: IOException?) {
 			if (uri == null || sa == null || ioe == null) {
 				throw IllegalArgumentException(

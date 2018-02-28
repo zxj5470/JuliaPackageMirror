@@ -1,5 +1,5 @@
-import com.github.zxj5470.zulia.action.createProject
 import com.github.zxj5470.zulia.util.addRemote
+import com.github.zxj5470.zulia.util.createProject
 import org.junit.Test
 
 class CreateTest {

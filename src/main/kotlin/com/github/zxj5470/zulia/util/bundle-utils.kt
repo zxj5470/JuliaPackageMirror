@@ -6,3 +6,6 @@ object Bundle {
 	fun message(key: String) =
 			ResourceBundle.getBundle("keys").getString(key)
 }
+
+val Any.pr
+	get() = println(this)

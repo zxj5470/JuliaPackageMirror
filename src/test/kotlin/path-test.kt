@@ -1,5 +1,4 @@
-import com.github.zxj5470.zulia.action.download
-import com.github.zxj5470.zulia.util.FileManager
+import com.github.zxj5470.zulia.util.*
 import org.junit.Test
 
 class PathTest {
@@ -11,8 +10,13 @@ class PathTest {
 	/**
 	 * It'll takes very long time!
 	 */
+//	@Test
+//	suspend fun testDownload(){
+//		download()
+//	}
+
 	@Test
-	suspend fun testDownload(){
-		download()
+	fun testListFiles() {
+		FileManager.listHolonomicLocalDirs().forEach { it.pr }
 	}
 }
