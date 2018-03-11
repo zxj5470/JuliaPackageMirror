@@ -31,4 +31,16 @@ object requests {
 			""
 		}
 	}
+
+	fun delete(url: String): String {
+		val request = Request.Builder()
+				.url(url)
+				.delete()
+				.build()
+		return try {
+			client.newCall(request).execute().body()?.string() ?: ""
+		} catch (e: Exception) {
+			""
+		}
+	}
 }

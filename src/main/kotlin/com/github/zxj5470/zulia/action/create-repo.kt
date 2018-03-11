@@ -8,16 +8,18 @@ import kotlinx.coroutines.experimental.runBlocking
 
 fun main(args: Array<String>) = runBlocking {
 	var repos = FileManager.listHolonomicLocalDirs().map { it.toString().trimRepoName() }
-	repos = repos.sub(260, 100)
+	val total = repos.size
+
+	val beginIndex = 950
+	repos = repos.subList(beginIndex, repos.lastIndex).map { it.trimRepoNameByPath() }
 	val size = repos.size
-	repos = repos.map { it.trimRepoNameByPath() }
 	var i = 0
 	val jobs = List(repos.size) { index ->
 		launch(CommonPool) {
 			giteeCreateRepos(repos[index])
-			println("${repos[index]} (${index + 1}/$size)")
+			println("${repos[index]} (${index + 1}/$size) \t\tTOTAL:(${beginIndex + index + 1}/$total)")
 			addRemoteGitee(repos[index])
-			println("${repos[index]} (${++i}/$size) finished")
+			System.err.println("${repos[index]} (${++i}/$size) finished")
 		}
 	}
 	jobs.forEach { it.join() }
