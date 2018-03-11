@@ -5,8 +5,8 @@ import org.eclipse.jgit.internal.storage.file.FileRepository
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import org.intellij.lang.annotations.Language
 
-val username = Bundle.message("gitlab.username")
-val password = Bundle.message("gitlab.password")
+val username = Bundle.message("git.username")
+val password = Bundle.message("git.password")
 val pkgRootDir = Bundle.message("dir.clone.pkg.root")
 
 fun createProject(repoName: String) {
@@ -23,7 +23,7 @@ fun createProject(repoName: String) {
 	println(requests.post(gitlabURL, data = data, headers = gitlabHeaders))
 }
 
-fun addRemote(name: String) {
+fun addRemoteUstc(name: String) {
 	val repoName = name.replace(".jl", "-jl")
 	val repoURL = "https://git.ustclug.org/zxj5470/$repoName.git"
 	val file = "$pkgRootDir\\$name\\.git"
@@ -39,9 +39,23 @@ fun addRemote(name: String) {
 	push.call()
 }
 
+fun addRemoteGitee(name: String){
+	val repoURL = "https://gitee.com/Julialang/$name.git"
+	val file = "$pkgRootDir\\$name\\.git"
+	val git = Git(FileRepository(file))
+	val cmd = "git remote add gitee $repoURL"
+	val process = Runtime.getRuntime().exec(cmd, null, file.toFile())
+	println(process.inputStream.reader().readText())
+	println(process.errorStream.reader().readText())
+	val push = git.push()
+	push.remote = "gitee"
+	push.isForce = true
+	push.setCredentialsProvider(UsernamePasswordCredentialsProvider(username, password))
+	push.call()
+}
 
 fun main(args: Array<String>) {
 	val name = "AbstractNumbers.jl"
 	createProject(name)
-	addRemote(name)
+	addRemoteUstc(name)
 }

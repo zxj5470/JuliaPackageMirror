@@ -34,6 +34,7 @@ object FileManager {
 }
 
 fun String.trimRepoName() = this.substringAfterLast('/').substringBefore(".git")
+fun String.trimRepoNameByPath() = this.substringAfterLast(File.separator)
 fun String.toFile() = File(this)
 fun String.toPath() = Paths.get(this)!!
 fun <E>List<E>.sub(beginIndex:Int, size:Int)=this.subList(beginIndex,beginIndex+ size)

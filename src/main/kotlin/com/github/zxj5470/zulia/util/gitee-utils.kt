@@ -7,8 +7,6 @@ fun giteeCreateRepos(name:String){
 	val token = Bundle.message("gitee.token")
 	@Language("json")
 	val data = """
-		{"access_token":$token,
-		"name":"$name"
-		}""".trimIndent()
+		{"access_token":"$token","name":"$name"}""".trimIndent()
 	println(requests.post(url = url, data = data))
 }

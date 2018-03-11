@@ -6,6 +6,9 @@ import com.github.zxj5470.zulia.util.FileManager
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 
+/**
+ * git clone
+ */
 suspend fun download() {
 	setProxy()
 	FileManager.removeEmptyDirs()
