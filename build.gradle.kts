@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-	compile(kotlinModule("stdlib-jdk8", kotlin_version))
+	compile(kotlin("stdlib-jdk8", kotlin_version))
 	compile("org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.3")
 	compile("org.eclipse.jgit:org.eclipse.jgit:+")
 	compile("com.squareup.okhttp3:okhttp-android-support:+")
