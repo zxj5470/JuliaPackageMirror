@@ -39,12 +39,16 @@ fun addRemoteUstc(name: String) {
 	push.call()
 }
 
-fun addRemoteGitee(name: String){
-	val repoURL = "https://gitee.com/Julialang/$name.git"
+fun addRemoteGitee(name: String, remoteUrl: String = "https://gitee.com/Julialang") {
+	val repoURL = "$remoteUrl/$name.git"
 	val file = "$pkgRootDir\\$name\\.git"
 	val git = Git(FileRepository(file))
-	val cmd = "git remote add gitee $repoURL"
-	val process = Runtime.getRuntime().exec(cmd, null, file.toFile())
+	var cmd = "git remote add gitee $repoURL"
+	var process = Runtime.getRuntime().exec(cmd, null, file.toFile())
+	println(process.inputStream.reader().readText())
+	println(process.errorStream.reader().readText())
+	cmd = "git remote set-url gitee $repoURL"
+	process = Runtime.getRuntime().exec(cmd, null, file.toFile())
 	println(process.inputStream.reader().readText())
 	println(process.errorStream.reader().readText())
 	val push = git.push()
