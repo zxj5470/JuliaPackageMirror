@@ -9,6 +9,14 @@ val username = Bundle.message("git.username")
 val password = Bundle.message("git.password")
 val pkgRootDir = Bundle.message("dir.clone.pkg.root")
 
+fun removeProject(repoName: String) {
+	val gitlabHeaders = mapOf(
+			"PRIVATE-TOKEN" to Bundle.message("gitlab.token")
+	)
+	val gitlabURL = "https://git.ustclug.org/api/v3/projects/zxj5470%2F$repoName"
+	println(requests.delete(gitlabURL, headers = gitlabHeaders))
+}
+
 fun createProject(repoName: String) {
 	val gitlabHeaders = mapOf(
 			"PRIVATE-TOKEN" to Bundle.message("gitlab.token")
@@ -59,7 +67,9 @@ fun addRemoteGitee(name: String, remoteUrl: String = "https://gitee.com/Julialan
 }
 
 fun main(args: Array<String>) {
-	val name = "AbstractNumbers.jl"
-	createProject(name)
-	addRemoteUstc(name)
+//	val name = "AbstractNumbers.jl"
+//	createProject(name)
+//	addRemoteUstc(name)
+	val name = "Calc.jl"
+	removeProject(name)
 }

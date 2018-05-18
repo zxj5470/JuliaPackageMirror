@@ -17,6 +17,6 @@ class PathTest {
 
 	@Test
 	fun testListFiles() {
-		FileManager.listHolonomicLocalDirs().forEach { it.pr }
+		FileManager.listHolonomicLocalDirs().forEach(Any::pr)
 	}
 }

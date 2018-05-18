@@ -18,7 +18,7 @@ object requests {
 		}
 	}
 
-	fun post(url: String, data: String, headers: Map<String, String> = emptyMap()): String {
+	fun post(url: String, data: String = "", headers: Map<String, String> = emptyMap()): String {
 		val body = RequestBody.create(JSON, data)
 		val request = Request.Builder()
 				.url(url)
@@ -32,15 +32,17 @@ object requests {
 		}
 	}
 
-	fun delete(url: String): String {
-		val request = Request.Builder()
+	fun delete(url: String, headers: Map<String, String> = emptyMap()): String {
+		val request = Request.Builder().delete()
 				.url(url)
 				.delete()
+				.headers(Headers.of(headers))
 				.build()
 		return try {
+			println(request.url())
 			client.newCall(request).execute().body()?.string() ?: ""
 		} catch (e: Exception) {
-			""
+			"Internal Error."
 		}
 	}
 }
